@@ -1,0 +1,24 @@
+{
+  "name": "redux-effects",
+  "version": "0.1.0",
+  "description": "You write pure functions, redux-effects handles the rest.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashaffer/redux-effects"
+  },
+  "keywords": [
+    "redux",
+    "effects",
+    "side-effects"
+  ],
+  "author": "ashaffer (http://github.com/ashaffer)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashaffer/redux-effects/issues"
+  },
+  "homepage": "https://github.com/ashaffer/redux-effects"
+}
