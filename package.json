@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/ashaffer/redux-effects/issues"
   },
-  "homepage": "https://github.com/ashaffer/redux-effects"
+  "homepage": "https://github.com/ashaffer/redux-effects",
+  "devDependencies": {
+    "babel-tape-runner": "^1.2.0",
+    "standard": "^5.1.0"
+  }
 }
