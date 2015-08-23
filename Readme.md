@@ -23,7 +23,7 @@ This would enable you to write pure actions that are capable of manipulating eac
 
 ### In action creators
 
-All effectful action creators should export a promise-like interface (I use [declarative-promise](https://github.com/ashaffer/declarative-promise)), even if they are normally synchronous operations (e.g. cookies).  For example:
+All effectful action creators should export a promise-like interface (I use [declarative-promise](https://github.com/redux-effects/declarative-promise)), even if they are normally synchronous operations (e.g. cookies).  For example:
 
 ```javascript
 import cookie from 'declarative-cookie'
@@ -37,7 +37,7 @@ function checkAuth () {
 const setAuthToken = createAction('SET_AUTH_TOKEN')
 ```
 
-You can choose to use a different interface for binding to results, but under the hood it should probably create the same data-structure that [declarative-promise](https://github.com/ashaffer/declarative-promise) does, so that it works nicely with other packages.
+You can choose to use a different interface for binding to results, but under the hood it should probably create the same data-structure that [declarative-promise](https://github.com/redux-effects/declarative-promise) does, so that it works nicely with other packages.
 
 ## Benefits
 
@@ -115,18 +115,18 @@ function (req, res, next) {
 
 Plugins that enable various effects:
 
-  * [redux-effects-fetch](https://github.com/ashaffer/redux-effects-fetch) - HTTP Requests
-  * [redux-effects-cookie](https://github.com/ashaffer/redux-effects-cookie) - Cookie get/set
-  * [redux-effects-location](https://github.com/ashaffer/redux-effects-location) - Location (window.location) binding and setting
+  * [redux-effects-fetch](https://github.com/redux-effects/redux-effects-fetch) - HTTP Requests
+  * [redux-effects-cookie](https://github.com/redux-effects/redux-effects-cookie) - Cookie get/set
+  * [redux-effects-location](https://github.com/redux-effects/redux-effects-location) - Location (window.location) binding and setting
 
 ### Action creators
 
 Interfaces for creating those effect actions:
 
-  * [declarative-fetch](https://github.com/ashaffer/declarative-fetch)
-  * [declarative-cookie](https://github.com/ashaffer/declarative-cookie)
-  * [declarative-location](https://github.com/ashaffer/declarative-location)
-  * [declarative-promise](https://github.com/ashaffer/declarative-promise) - Should probably only be consumed by other action creators
+  * [declarative-fetch](https://github.com/redux-effects/declarative-fetch)
+  * [declarative-cookie](https://github.com/redux-effects/declarative-cookie)
+  * [declarative-location](https://github.com/redux-effects/declarative-location)
+  * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Should probably only be consumed by other action creators
 
 *Note: All they do is provide an interface for creating plain JS objects, so if you don't like
 the interface, you can just create your own*
