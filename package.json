@@ -4,7 +4,8 @@
   "description": "You write pure functions, redux-effects handles the rest.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "rm -rf lib && babel src --out-dir lib",
+    "postpublish": "rm -rf lib"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/redux-effects/redux-effects",
   "devDependencies": {
+    "babel": "^5.8.21",
     "babel-tape-runner": "^1.2.0",
     "redux": "^1.0.1",
     "standard": "^5.1.0",

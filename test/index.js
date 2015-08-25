@@ -4,7 +4,7 @@
 
 import test from 'tape'
 import {createStore, applyMiddleware} from 'redux'
-import effects from '..'
+import effects from '../src'
 
 /**
  * Tests
