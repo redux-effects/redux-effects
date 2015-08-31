@@ -115,6 +115,7 @@ function (req, res, next) {
 
 Plugins that enable various effects:
 
+  * [redux-effects-timeout](https://github.com/redux-effects/redux-effects-timeout) - setTimeout/setInterval/requestAnimationFrame
   * [redux-effects-fetch](https://github.com/redux-effects/redux-effects-fetch) - HTTP Requests
   * [redux-effects-cookie](https://github.com/redux-effects/redux-effects-cookie) - Cookie get/set
   * [redux-effects-location](https://github.com/redux-effects/redux-effects-location) - Location (window.location) binding and setting
@@ -123,9 +124,11 @@ Plugins that enable various effects:
 
 Interfaces for creating those effect actions:
 
+  * [declarative-timeout](https://github.com/redux-effects/declarative-timeout)
   * [declarative-fetch](https://github.com/redux-effects/declarative-fetch)
   * [declarative-cookie](https://github.com/redux-effects/declarative-cookie)
   * [declarative-location](https://github.com/redux-effects/declarative-location)
+  * [declarative-effect](https://github.com/redux-effects/declarative-effect) - Tiny wrapper that makes creating effects easier for other libraries
   * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Should probably only be consumed by other action creators
 
 *Note: All they do is provide an interface for creating plain JS objects, so if you don't like
