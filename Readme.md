@@ -123,6 +123,7 @@ Plugins that enable various effects:
 ### Action creators
   * [redux-effects-events](https://github.com/redux-effects/redux-effects-events) - Dispatch actions in response to `window/document` events (e.g. `scroll/resize/popstate/etc`)
 
+### Action creators
 Interfaces for creating those effect actions:
 
   * [declarative-timeout](https://github.com/redux-effects/declarative-timeout)
