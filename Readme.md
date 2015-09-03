@@ -119,8 +119,9 @@ Plugins that enable various effects:
   * [redux-effects-fetch](https://github.com/redux-effects/redux-effects-fetch) - HTTP Requests
   * [redux-effects-cookie](https://github.com/redux-effects/redux-effects-cookie) - Cookie get/set
   * [redux-effects-location](https://github.com/redux-effects/redux-effects-location) - Location (window.location) binding and setting
-
+  * [redux-effects-random](https://github.com/redux-effects/redux-effects-random) - Generate random numbers 
 ### Action creators
+  * [redux-effects-events](https://github.com/redux-effects/redux-effects-events) - Dispatch actions in response to `window/document` events (e.g. `scroll/resize/popstate/etc`)
 
 Interfaces for creating those effect actions:
 
@@ -128,6 +129,8 @@ Interfaces for creating those effect actions:
   * [declarative-fetch](https://github.com/redux-effects/declarative-fetch)
   * [declarative-cookie](https://github.com/redux-effects/declarative-cookie)
   * [declarative-location](https://github.com/redux-effects/declarative-location)
+  * [declarative-random](https://github.com/redux-effects/declarative-random)
+  * [declarative-events](https://github.com/redux-effects/declarative-events)
   * [declarative-effect](https://github.com/redux-effects/declarative-effect) - Tiny wrapper that makes creating effects easier for other libraries
   * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Should probably only be consumed by other action creators
 
