@@ -23,8 +23,12 @@ function effects (...middlewares) {
 
     function applyPromises (thens=[], q) {
       thens.forEach(({success=noop, failure=noop, then}) => {
-        applyPromises(then, q.then((res) => dispatch(success(res)), err => dispatch(failure(err))))
+        applyPromises(then, q.then((res) => maybeDispatch(success(res)), err => maybeDispatch(failure(err))))
       })
+    }
+
+    function maybeDispatch (action) {
+      return action && dispatch(action)
     }
   }
 }
