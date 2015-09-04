@@ -15,7 +15,7 @@ function effects (...middlewares) {
 
     return next => action => {
       // Help people out if they forgot to .toJSON()
-      if (action instanceof DeclarativePromise) {
+      if (isDeclarativePromise(action)) {
         action = action.toJSON()
       }
 
@@ -41,6 +41,10 @@ function unhandledEffect (effect) {
 
 function compose (...funcs) {
   return funcs.reduceRight((composed, f) => f(composed))
+}
+
+function isDeclarativePromise (obj) {
+  return (typeof obj.then === 'function' && typeof obj.action === 'object' && obj.root)
 }
 
 /**
