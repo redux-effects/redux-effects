@@ -1,4 +1,10 @@
 /**
+ * Imports
+ */
+
+import DeclarativePromise from 'declarative-promise'
+
+/**
  * Effects
  */
 
@@ -8,6 +14,11 @@ function effects (...middlewares) {
     const stack = compose(...chain, unhandledEffect)
 
     return next => action => {
+      // Help people out if they forgot to .toJSON()
+      if (action instanceof DeclarativePromise) {
+        action = action.toJSON()
+      }
+
       if (action.type !== 'EFFECT') {
         return next(action)
       }
