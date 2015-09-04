@@ -1,10 +1,4 @@
 /**
- * Imports
- */
-
-import DeclarativePromise from 'declarative-promise'
-
-/**
  * Effects
  */
 
@@ -28,7 +22,7 @@ function effects (...middlewares) {
     }
 
     function applyPromises (thens=[], q) {
-      thens.forEach(({success, failure, then}) => {
+      thens.forEach(({success=noop, failure=noop, then}) => {
         applyPromises(then, q.then((res) => dispatch(success(res)), err => dispatch(failure(err))))
       })
     }
@@ -46,6 +40,8 @@ function compose (...funcs) {
 function isDeclarativePromise (obj) {
   return (typeof obj.then === 'function' && typeof obj.action === 'object' && obj.root)
 }
+
+function noop () {}
 
 /**
  * Exports
