@@ -29,7 +29,7 @@ function effects (...middlewares) {
 
     function applyPromises (thens=[], q) {
       thens.forEach(({success, failure, then}) => {
-        applyPromises(q.then((res) => dispatch(success(res)), err => dispatch(failure(err))), then)
+        applyPromises(then, q.then((res) => dispatch(success(res)), err => dispatch(failure(err))))
       })
     }
   }
