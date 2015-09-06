@@ -37,6 +37,8 @@ function checkAuth () {
 const setAuthToken = createAction('SET_AUTH_TOKEN')
 ```
 
+Then return values of the functions passed to `.then` are dispatched back into redux.  If your functions do not return a value, they do not do anything.  Their only ability to effect the world is by ultimately dispatching that trigger state reducers.
+
 You can choose to use a different interface for binding to results, but under the hood it should probably create the same data-structure that [declarative-promise](https://github.com/redux-effects/declarative-promise) does, so that it works nicely with other packages.
 
 ## Benefits
