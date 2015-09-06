@@ -18,12 +18,12 @@ function effects (...middlewares) {
       }
 
       const q = Promise.resolve(stack(action.payload))
-      action.meta && applyPromises(action.meta.then, q)
+      action.meta && applyPromises(action.meta.steps, q)
     }
 
-    function applyPromises (thens=[], q) {
-      thens.forEach(({success=noop, failure=noop, then}) => {
-        applyPromises(then, q.then((res) => maybeDispatch(success(res)), err => maybeDispatch(failure(err))))
+    function applyPromises (steps=[], q) {
+      steps.forEach(({success=noop, failure=noop, steps}) => {
+        applyPromises(steps, q.step((res) => maybeDispatch(success(res)), err => maybeDispatch(failure(err))))
       })
     }
 
@@ -42,7 +42,7 @@ function compose (...funcs) {
 }
 
 function isDeclarativePromise (obj) {
-  return (typeof obj.then === 'function' && typeof obj.action === 'object' && obj.root)
+  return (typeof obj.step === 'function' && typeof obj.action === 'object' && obj.root)
 }
 
 function noop () {}

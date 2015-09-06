@@ -31,7 +31,7 @@ import {createAction} from 'redux-actions'
 
 function checkAuth () {
   return cookie('authToken')
-    .then(setAuthToken)
+    .step(setAuthToken)
 }
 
 const setAuthToken = createAction('SET_AUTH_TOKEN')
@@ -119,7 +119,7 @@ Plugins that enable various effects:
   * [redux-effects-fetch](https://github.com/redux-effects/redux-effects-fetch) - HTTP Requests
   * [redux-effects-cookie](https://github.com/redux-effects/redux-effects-cookie) - Cookie get/set
   * [redux-effects-location](https://github.com/redux-effects/redux-effects-location) - Location (window.location) binding and setting
-  * [redux-effects-random](https://github.com/redux-effects/redux-effects-random) - Generate random numbers 
+  * [redux-effects-random](https://github.com/redux-effects/redux-effects-random) - Generate random numbers
 ### Action creators
   * [redux-effects-events](https://github.com/redux-effects/redux-effects-events) - Dispatch actions in response to `window/document` events (e.g. `scroll/resize/popstate/etc`)
 
