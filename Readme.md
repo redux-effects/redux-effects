@@ -37,6 +37,8 @@ function checkAuth () {
 const setAuthToken = createAction('SET_AUTH_TOKEN')
 ```
 
+Then return values of the functions passed to `.then` are dispatched back into redux.  If your functions do not return a value, they do not do anything.  Their only ability to effect the world is by ultimately dispatching that trigger state reducers.
+
 You can choose to use a different interface for binding to results, but under the hood it should probably create the same data-structure that [declarative-promise](https://github.com/redux-effects/declarative-promise) does, so that it works nicely with other packages.
 
 ## Benefits
@@ -122,6 +124,7 @@ Plugins that enable various effects:
   * [redux-effects-random](https://github.com/redux-effects/redux-effects-random) - Generate random numbers
 ### Action creators
   * [redux-effects-events](https://github.com/redux-effects/redux-effects-events) - Dispatch actions in response to `window/document` events (e.g. `scroll/resize/popstate/etc`)
+  * [redux-effects-credentials](https://github.com/redux-effects/redux-effects-credentials) - Automatically decorate your fetch requests with credentials stored in state if the url matches a certain pattern.
 
 ### Action creators
 Interfaces for creating those effect actions:
