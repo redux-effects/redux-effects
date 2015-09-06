@@ -23,7 +23,7 @@ function effects (...middlewares) {
 
     function applyPromises (steps=[], q) {
       steps.forEach(({success=noop, failure=noop, steps}) => {
-        applyPromises(steps, q.step((res) => maybeDispatch(success(res)), err => maybeDispatch(failure(err))))
+        applyPromises(steps, q.then((res) => maybeDispatch(success(res)), err => maybeDispatch(failure(err))))
       })
     }
 
