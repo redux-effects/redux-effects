@@ -8,11 +8,6 @@ function effects (...middlewares) {
     const stack = compose(...chain, unhandledEffect)
 
     return next => action => {
-      // Help people out if they forgot to .toJSON()
-      if (isDeclarativePromise(action)) {
-        action = action.toJSON()
-      }
-
       if (action.type !== 'EFFECT') {
         return next(action)
       }
@@ -22,9 +17,7 @@ function effects (...middlewares) {
     }
 
     function applyPromises (steps=[], q) {
-      steps.forEach(({success=noop, failure=noop, steps}) => {
-        applyPromises(steps, q.then((res) => maybeDispatch(success(res)), err => maybeDispatch(failure(err))))
-      })
+      steps.reduce((q, [success = noop, failure = noop]) => q.then(val => maybeDispatch(success(val)), err => maybeDispatch(failure(err))), q)
     }
 
     function maybeDispatch (action) {
@@ -39,10 +32,6 @@ function unhandledEffect (effect) {
 
 function compose (...funcs) {
   return funcs.reduceRight((composed, f) => f(composed))
-}
-
-function isDeclarativePromise (obj) {
-  return (typeof obj.step === 'function' && typeof obj.action === 'object' && obj.root)
 }
 
 function noop () {}

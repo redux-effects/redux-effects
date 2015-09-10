@@ -23,23 +23,42 @@ This would enable you to write pure actions that are capable of manipulating eac
 
 ### In action creators
 
-All effectful action creators should export a promise-like interface (I use [declarative-promise](https://github.com/redux-effects/declarative-promise)), even if they are normally synchronous operations (e.g. cookies).  For example:
+All effectful action creators should return a declarative action rather than an impure value, even if their operation is normally synchronous (e.g. Math.random or cookie retrieval).  In order to operate on the values returned by these actions, you need to specify your handlers in `.meta.steps` in the action object.  It is recommended that you use a composition library like [bind-effect](https://github.com/redux-effects/bind-effect) or [declarative-promise](https://github.com/redux-effects/declarative-promise) to make that feel more natural and be less syntactically cumbersome.
 
 ```javascript
+import bind from 'bind-effect'
 import cookie from 'declarative-cookie'
 import {createAction} from 'redux-actions'
 
 function checkAuth () {
-  return cookie('authToken')
-    .step(setAuthToken)
+  return bind(cookie('authToken'), setAuthToken)
 }
 
 const setAuthToken = createAction('SET_AUTH_TOKEN')
 ```
 
-Then return values of the functions passed to `.then` are dispatched back into redux.  If your functions do not return a value, they do not do anything.  Their only ability to effect the world is by ultimately dispatching that trigger state reducers.
+The values returned by your actions will be passed to the handlers specified on your action object.  Then, what your handlers return will be dispatched back into redux to either trigger other effects or be preserved in state.  If your functions do not return a value, they do not do anything.  Their only ability to effect the world is by ultimately dispatching actions that trigger state reducers, or by triggering effects that cause state to be preserved elsewhere (e.g. a POST request to an API server).
 
-You can choose to use a different interface for binding to results, but under the hood it should probably create the same data-structure that [declarative-promise](https://github.com/redux-effects/declarative-promise) does, so that it works nicely with other packages.
+### Effect composition
+
+Effects compose by placing `steps` in `.meta.steps` on the action object.  E.g.
+
+```javascript
+{
+  type: 'EFFECT',
+  payload: someEffectfulAction,
+  steps: [
+    [success, failure]
+  ]
+}
+```
+
+Since this is cumbersome to write out, there are libraries to help with it:
+
+  * [bind-effect](https://github.com/redux-effects/bind-effect)
+  * [declarative-promise](https://github.com/redux-effects/declarative-promise)
+
+But it is important to understand that ultimately these libraries just produce simple plain JS objects as described above, and you are totally free to create your own composition interfaces that behave exactly the way you want if you don't like these.  There is nothing magical going on.
 
 ## Benefits
 
@@ -47,10 +66,16 @@ You can choose to use a different interface for binding to results, but under th
   * Powerful meta-programming facilities (e.g. request caching)
   * More testable code
   * Better insights into what is happening in your application (e.g. logging effects)
+  * Better ability to serialize state
 
 ## Writing effectful middleware
 
-Effects middleware look essentially just like regular redux middleware, with a few additional specifications.  If your middleware is doing something asynchronous, it should return a promise.  If you are accessing a synchronous impurity (e.g. cookies), you may return it by value.  This list may grow over time, but for now that's it.
+Effects middleware look essentially just like regular redux middleware, with a few additional specifications:
+
+  * If your middleware is doing something asynchronous, it should return a promise.
+  * If you are accessing a synchronous impurity (e.g. cookies), you may return it by value.
+
+This list may grow over time, but for now that's it.
 
 ### Example - Simple cookie middleware
 
@@ -135,8 +160,9 @@ Interfaces for creating those effect actions:
   * [declarative-location](https://github.com/redux-effects/declarative-location)
   * [declarative-random](https://github.com/redux-effects/declarative-random)
   * [declarative-events](https://github.com/redux-effects/declarative-events)
-  * [declarative-effect](https://github.com/redux-effects/declarative-effect) - Tiny wrapper that makes creating effects easier for other libraries
-  * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Should probably only be consumed by other action creators
 
-*Note: All they do is provide an interface for creating plain JS objects, so if you don't like
-the interface, you can just create your own*
+### Composition helpers
+
+  * [bind-effect](https://github.com/redux-effects/bind-effect) - `bind(action, success, failure)`
+  * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Wrap your actions in a promise-like interface
+
