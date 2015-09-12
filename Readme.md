@@ -6,6 +6,14 @@ You write pure functions, redux-effects handles the rest.
 
 `npm install redux-effects`
 
+## Benefits
+
+  * Trivial isomorphism.  If your effect middleware is isomorphic, your app is isomorphic.
+  * Powerful meta-programming facilities (e.g. request caching)
+  * More testable code
+  * Better insights into what is happening in your application (e.g. logging effects)
+  * Better ability to serialize state
+
 ## Usage
 
 The `redux-effects` package offers very little functionality on its own.  It provides an isolated, namespaced middleware stack for other effectful redux middlewares.  For instance:
@@ -59,14 +67,6 @@ Since this is cumbersome to write out, there are libraries to help with it:
   * [declarative-promise](https://github.com/redux-effects/declarative-promise)
 
 But it is important to understand that ultimately these libraries just produce simple plain JS objects as described above, and you are totally free to create your own composition interfaces that behave exactly the way you want if you don't like these.  There is nothing magical going on.
-
-## Benefits
-
-  * Trivial isomorphism.  If your effect middleware is isomorphic, your app is isomorphic.
-  * Powerful meta-programming facilities (e.g. request caching)
-  * More testable code
-  * Better insights into what is happening in your application (e.g. logging effects)
-  * Better ability to serialize state
 
 ## Writing effectful middleware
 
