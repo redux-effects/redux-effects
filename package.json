@@ -29,5 +29,7 @@
     "standard": "^5.1.0",
     "tape": "^4.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "is-promise": "^2.1.0"
+  }
 }

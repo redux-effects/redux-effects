@@ -11,17 +11,17 @@ import effects from '../src'
  */
 
 test('should work', ({plan, equal}) => {
-  const store = create(mw)
+  const store = create(effects, mw)
 
-  plan(1)
-  store.dispatch({type: 'EFFECT', payload: {type: 'test'}})
+  plan(2)
+  store.dispatch({type: 'test', meta: {steps: [[val => equal(val, 'someVal')]]}})
+  store.dispatch({type: 'other', meta: {steps: [[() => {}, err => equal(err, 'otherVal')]]}})
 
   function mw (api) {
-    return next => {
-      return effect => {
-        equal(effect.type, 'test')
-      }
-    }
+    return next => action =>
+      action.type === 'test'
+        ? Promise.resolve('someVal')
+        : Promise.reject('otherVal')
   }
 })
 
@@ -30,5 +30,5 @@ test('should work', ({plan, equal}) => {
  */
 
 function create (...mw) {
-  return applyMiddleware(effects(...mw))(createStore)(() => {}, {})
+  return applyMiddleware(...mw)(createStore)(() => {}, {})
 }
