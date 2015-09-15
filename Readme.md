@@ -8,7 +8,7 @@ Virtual DOM for effects and impurities.  You write pure functions, redux-effects
 
 ## Benefits
 
-  * Trivial isomorphism.  If your effect middleware is universal, your app is universal.
+  * Trivial universality.  If your effect middleware is universal, your app is universal.
   * Powerful meta-programming facilities (e.g. request caching)
   * More testable code
   * Better insights into what is happening in your application (e.g. logging effects)
