@@ -9,7 +9,7 @@ Virtual DOM for effects and impurities.  You write pure functions, redux-effects
 ## Benefits
 
   * Trivial universality.  If your effect middleware is universal, your app is universal.
-  * Powerful meta-programming facilities (e.g. request caching)
+  * [Powerful meta-programming facilities](#Metaprogramming) (e.g. request caching)
   * More testable code
   * Better insights into what is happening in your application (e.g. logging effects)
   * Better ability to serialize state
@@ -132,6 +132,38 @@ function (req, res, next) {
   req.store = applyMiddleware(effects(cookie(req.cookies)))(createStore)
 }
 ```
+
+## Metaprogramming
+
+Where this approach gets really interesting is when you start applying transformations to your effects.  Normally these things are implemented in different, usually hacky ways.  But when you have declarative descriptions of all of your effects, you can unify your transformations into your redux middleware stack, and they can be completely orthogonal to the actual implementations of the effects themselves.  Here are some examples:
+
+### Request caching
+
+```javascript
+function httpCache () {
+  const {get, set, check} = cache()
+
+  return next => action =>
+   !isGetRequest(action) 
+      ? next(action)
+      : check(action.payload.url) 
+        ? Promise.resolve(get(action.payload.url)) 
+        : next(action).then(set(action.payload.url))
+}
+```
+
+### Response normalization
+
+```javascript
+function normalize () {
+  return next => action =>
+    isGetRequest(action)
+      ? next(action).then(normalizr)
+      : next(action)
+}
+```
+
+Note that while these examples both transform http requests, they are completely orthogonal to the actual implementation of those requests, and completely orthogonal to the action creator interface you choose to use to generate your descriptors.
 
 ## Ecosystem
 
