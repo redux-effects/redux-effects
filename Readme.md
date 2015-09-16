@@ -87,9 +87,9 @@ export default function ({dispatch, getState}) {
 
     switch (action.verb) {
       case 'set':
-        return cookie(action.name, action.value)
+        return Promise.resolve(cookie(action.name, action.value))
       case 'get':
-        return cookie(action.name)
+        return Promise.resolve(cookie(action.name))
     }
   }
 }
@@ -108,9 +108,9 @@ export default function (cookieMap) {
 
     switch (action.verb) {
       case 'set':
-        return cookie(action.name, action.value)
+        return Promise.resolve(cookie(action.name, action.value))
       case 'get':
-        return cookie(action.name)
+        return Promise.resolve(cookie(action.name))
     }
   }
 
