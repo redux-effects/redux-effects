@@ -158,8 +158,11 @@ Interfaces for creating those effect actions:
   * [declarative-random](https://github.com/redux-effects/declarative-random)
   * [declarative-events](https://github.com/redux-effects/declarative-events)
 
-### Composition helpers
+### Alternate composition middleware
 
   * [redux-gen](https://github.com/weo-edu/redux-gen)
+
+### Composition helpers
+
   * [bind-effect](https://github.com/redux-effects/bind-effect) - `bind(action, success, failure)`
   * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Wrap your actions in a promise-like interface
