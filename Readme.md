@@ -160,5 +160,6 @@ Interfaces for creating those effect actions:
 
 ### Composition helpers
 
+  * [redux-gen](https://github.com/weo-edu/redux-gen)
   * [bind-effect](https://github.com/redux-effects/bind-effect) - `bind(action, success, failure)`
   * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Wrap your actions in a promise-like interface
