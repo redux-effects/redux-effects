@@ -163,7 +163,13 @@ function normalize () {
 }
 ```
 
-Note that while these examples both transform http requests, they are completely orthogonal to the actual implementation of those requests, and completely orthogonal to the action creator interface you choose to use to generate your descriptors.
+Note that while these examples both transform http requests, they are completely orthogonal to the actual implementation of those requests, and completely orthogonal to the action creator interface you choose to use to generate your descriptors.  That means you can:
+
+  * Swap out your http request implementation
+  * Change your action creator interface
+  * Use a different effect composition strategy
+
+And not have to change your transform middleware at all.
 
 ## Ecosystem
 
