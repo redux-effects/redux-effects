@@ -135,7 +135,7 @@ function (req, res, next) {
 
 ## Metaprogramming
 
-Where this approach gets really interesting is when you start applying transformations to your effects.  Normally these things are implemented in different, usually hacky ways.  But when you have declarative descriptions of all of your effects, you can unify your transformations into your redux middleware stack, and they can be completely orthogonal to the actual implementations of the effects themselves.  Here are some examples:
+Where this approach gets really interesting is when you start applying transformations to your effects.  Normally these things are implemented in disparate and often hacky ways.  But when you have declarative descriptions of all of your effects, you can unify your transformations into your redux middleware stack, and they can be completely orthogonal to the actual implementations of the effects themselves.  Here are some examples:
 
 ### Request caching
 
