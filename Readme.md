@@ -168,6 +168,7 @@ Note that while these examples both transform http requests, they are completely
   * Swap out your http request implementation
   * Change your action creator interface
   * Use a different effect composition strategy
+  * ...And most importantly, compose other transformations
 
 And not have to change your transform middleware at all.
 
