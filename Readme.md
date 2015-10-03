@@ -8,8 +8,8 @@ Virtual DOM for effects and impurities.  You write pure functions, redux-effects
 
 ## Benefits
 
-  * Trivial isomorphism.  If your effect middleware is isomorphic, your app is isomorphic.
-  * Powerful meta-programming facilities (e.g. request caching)
+  * Trivial universality.  If your effect middleware is universal, your app is universal.
+  * [Powerful meta-programming facilities](#metaprogramming) (e.g. request caching)
   * More testable code
   * Better insights into what is happening in your application (e.g. logging effects)
   * Better ability to serialize state
@@ -90,15 +90,15 @@ export default function ({dispatch, getState}) {
 
     switch (action.verb) {
       case 'set':
-        return cookie(action.name, action.value)
+        return Promise.resolve(cookie(action.name, action.value))
       case 'get':
-        return cookie(action.name)
+        return Promise.resolve(cookie(action.name))
     }
   }
 }
 ```
 
-### Example - Isomorphic cookie middleware
+### Example - Universal cookie middleware
 
 ```javascript
 import _cookie from 'component-cookie'
@@ -111,9 +111,9 @@ export default function (cookieMap) {
 
     switch (action.verb) {
       case 'set':
-        return cookie(action.name, action.value)
+        return Promise.resolve(cookie(action.name, action.value))
       case 'get':
-        return cookie(action.name)
+        return Promise.resolve(cookie(action.name))
     }
   }
 
@@ -135,6 +135,45 @@ function (req, res, next) {
   req.store = applyMiddleware(effects(cookie(req.cookies)))(createStore)
 }
 ```
+
+## Metaprogramming
+
+Where this approach gets really interesting is when you start applying transformations to your effects.  Normally these things are implemented in disparate and often hacky ways.  But when you have declarative descriptions of all of your effects, you can unify your transformations into your redux middleware stack, and they can be completely orthogonal to the actual implementations of the effects themselves.  Here are some examples:
+
+### Request caching
+
+```javascript
+function httpCache () {
+  const {get, set, check} = cache()
+
+  return next => action =>
+   !isGetRequest(action) 
+      ? next(action)
+      : check(action.payload.url) 
+        ? Promise.resolve(get(action.payload.url)) 
+        : next(action).then(set(action.payload.url))
+}
+```
+
+### Response normalization
+
+```javascript
+function normalize () {
+  return next => action =>
+    isGetRequest(action)
+      ? next(action).then(normalizr)
+      : next(action)
+}
+```
+
+Note that while these examples both transform http requests, they are completely orthogonal to the actual implementation of those requests, and completely orthogonal to the action creator interface you choose to use to generate your descriptors.  That means you can:
+
+  * Swap out your http request implementation
+  * Change your action creator interface
+  * Use a different effect composition strategy
+  * ...And most importantly, compose other transformations
+
+And not have to change your transform middleware at all.
 
 ## Ecosystem
 
@@ -160,6 +199,10 @@ Interfaces for creating those effect actions:
   * [declarative-location](https://github.com/redux-effects/declarative-location)
   * [declarative-random](https://github.com/redux-effects/declarative-random)
   * [declarative-events](https://github.com/redux-effects/declarative-events)
+
+### Alternate composition middleware
+
+  * [redux-gen](https://github.com/weo-edu/redux-gen)
 
 ### Composition helpers
 
