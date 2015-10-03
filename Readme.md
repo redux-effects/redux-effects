@@ -53,8 +53,11 @@ Effects compose by placing `steps` in `.meta.steps` on the action object.  E.g.
 
 ```javascript
 {
-  type: 'FETCH',
-  payload: {url: '/some/thing', method: 'GET'},
+  type: 'EFFECT_COMPOSE',
+  payload: {
+    type: 'FETCH'
+    payload: {url: '/some/thing', method: 'GET'}
+  },
   meta: {
     steps: [
       [success, failure]

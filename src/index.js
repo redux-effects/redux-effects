@@ -5,16 +5,25 @@
 import isPromise from 'is-promise'
 
 /**
+ * Action Types
+ */
+
+const EFFECT_COMPOSE = 'EFFECT_COMPOSE'
+
+/**
  * Effects
  */
 
 function effects ({dispatch, getState}) {
-  return next => action => {
-    const result = next(action)
+  return next => action =>
+    action.type === EFFECT_COMPOSE
+      ? composeEffect(action)
+      : next(action)
 
-    return isPromise(result)
-      ? action.meta && applyPromises(action.meta.steps, result)
-      : result
+
+  function composeEffect (action) {
+    const q = promisify(maybeDispatch(action.payload))
+    return action.meta && applyPromises(action.meta.steps, q)
   }
 
   function applyPromises (steps = [], q) {
@@ -24,6 +33,12 @@ function effects ({dispatch, getState}) {
   function maybeDispatch (action) {
     return action && dispatch(action)
   }
+}
+
+function promisify (val) {
+  return Array.isArray(val)
+    ? Promise.all(val)
+    : Promise.resolve(val)
 }
 
 function noop () {}
