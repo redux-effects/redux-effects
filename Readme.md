@@ -187,6 +187,7 @@ Plugins that enable various effects:
   * [redux-effects-location](https://github.com/redux-effects/redux-effects-location) - Location (window.location) binding and setting
   * [redux-effects-random](https://github.com/redux-effects/redux-effects-random) - Generate random numbers
   * [redux-effects-events](https://github.com/redux-effects/redux-effects-events) - Dispatch actions in response to `window/document` events (e.g. `scroll/resize/popstate/etc`)
+  * [redux-effects-localstorage](https://github.com/redux-effects/redux-effects-localstorage) - localStorage effects driver
   * [redux-effects-credentials](https://github.com/redux-effects/redux-effects-credentials) - Automatically decorate your fetch requests with credentials stored in state if the url matches a certain pattern.
 
 ### Alternate composition middleware
