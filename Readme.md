@@ -29,13 +29,13 @@ applyMiddleware(effects, fetch, cookie, location)
 
 ### In action creators
 
-All effectful action creators should return a declarative object describing the effect to be done, even if their operation is normally synchronous*.  In order to operate on the values returned by these actions, you need to specify your handlers in `.meta.steps` in the action object.  It is recommended that you use a composition library like [bind-effect](https://github.com/redux-effects/bind-effect) or [declarative-promise](https://github.com/redux-effects/declarative-promise) to make that feel more natural and be less syntactically cumbersome.
+All effectful action creators should return a declarative object describing the effect to be done, even if their operation is normally synchronous*.  In order to operate on the values returned by these actions, you need to specify your handlers in `.meta.steps` in the action object.  This library comes with a composition utility `bind`, but you are free to write your own such as [declarative-promise](https://github.com/redux-effects/declarative-promise).
 
 **E.g. Math.random or accessing cookies.  These values are also impure, even though they are synchronous, because they are non-deterministic with respect to your function's parameters.*
 
 ```javascript
-import bind from 'bind-effect'
-import cookie from 'declarative-cookie'
+import {bind} from 'redux-effects'
+import {cookie} from 'redux-effects-cookie'
 import {createAction} from 'redux-actions'
 
 function checkAuth () {
@@ -66,9 +66,9 @@ Effects compose by placing `steps` in `.meta.steps` on the action object.  E.g.
 }
 ```
 
-Since this is cumbersome to write out, there are libraries to help with it:
+Since this is cumbersome to write out, there are libraries / action creators to help with it:
 
-  * [bind-effect](https://github.com/redux-effects/bind-effect)
+  * `bind` which comes bundled with redux-effects
   * [declarative-promise](https://github.com/redux-effects/declarative-promise)
 
 But it is important to understand that ultimately these libraries just produce plain JS objects, and you are totally free to create your own composition interfaces that behave exactly the way you want if you don't like these.  There is nothing magical going on.
@@ -147,10 +147,10 @@ function httpCache () {
   const {get, set, check} = cache()
 
   return next => action =>
-   !isGetRequest(action) 
+   !isGetRequest(action)
       ? next(action)
-      : check(action.payload.url) 
-        ? Promise.resolve(get(action.payload.url)) 
+      : check(action.payload.url)
+        ? Promise.resolve(get(action.payload.url))
         : next(action).then(set(action.payload.url))
 }
 ```
@@ -177,7 +177,7 @@ And not have to change your transform middleware at all.
 
 ## Ecosystem
 
-### Middleware
+### Effect drivers
 
 Plugins that enable various effects:
 
@@ -189,22 +189,10 @@ Plugins that enable various effects:
   * [redux-effects-events](https://github.com/redux-effects/redux-effects-events) - Dispatch actions in response to `window/document` events (e.g. `scroll/resize/popstate/etc`)
   * [redux-effects-credentials](https://github.com/redux-effects/redux-effects-credentials) - Automatically decorate your fetch requests with credentials stored in state if the url matches a certain pattern.
 
-### Action creators
-
-Interfaces for creating those effect actions:
-
-  * [declarative-timeout](https://github.com/redux-effects/declarative-timeout)
-  * [declarative-fetch](https://github.com/redux-effects/declarative-fetch)
-  * [declarative-cookie](https://github.com/redux-effects/declarative-cookie)
-  * [declarative-location](https://github.com/redux-effects/declarative-location)
-  * [declarative-random](https://github.com/redux-effects/declarative-random)
-  * [declarative-events](https://github.com/redux-effects/declarative-events)
-
 ### Alternate composition middleware
 
   * [redux-gen](https://github.com/weo-edu/redux-gen)
 
 ### Composition helpers
 
-  * [bind-effect](https://github.com/redux-effects/bind-effect) - `bind(action, success, failure)`
   * [declarative-promise](https://github.com/redux-effects/declarative-promise) - Wrap your actions in a promise-like interface
