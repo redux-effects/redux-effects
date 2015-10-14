@@ -16,7 +16,7 @@ Virtual DOM for effects and impurities.  You write pure functions, redux-effects
 
 ## Usage
 
-This package gives you the ability to compose effectful actions together into promise-like chains, and as such, it must come before all other efffectful redux middlewares in your stack, like so:
+Add redux-effects anywhere in your redux middleware stack*:
 
 ```javascript
 import effects from 'redux-effects'
@@ -26,6 +26,8 @@ import location from 'redux-effects-location'
 
 applyMiddleware(effects, fetch, cookie, location)
 ```
+
+_* It used to need to come first, but that is no longer the case_
 
 ### In action creators
 
