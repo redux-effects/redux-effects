@@ -77,7 +77,12 @@ But it is important to understand that ultimately these libraries just produce p
 
 ## Writing effectful middleware
 
-Effects middleware look essentially just like regular redux middleware, except that it _*MUST*_ return a promise.  If it does not return a promise, it won't compose with other effects, and so won't be very useful to anyone.
+Effects middleware look essentially just like regular redux middleware, except that it _*must*_ return a promise.  If it does not return a promise, it won't compose with other effects, and so won't be very useful to anyone.
+
+As a general rule, your effect middleware should be as dumb as possible.  There are two reasons for this:
+
+  * Effect middleware is inherently impure, and therefore difficult to test and reason about
+  * Keeping complexity out of the effect middleware ensures it is as generally useful as possible, and as open as possible to abstraction and metaprogramming.
 
 ### Example - Simple cookie middleware
 
