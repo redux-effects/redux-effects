@@ -1,6 +1,6 @@
 {
   "name": "redux-effects",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "You write pure functions, redux-effects handles the rest.",
   "main": "lib/index.js",
   "scripts": {
