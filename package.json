@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/redux-effects/redux-effects",
   "devDependencies": {
-    "babel": "^5.8.21",
+    "babel-preset-es2015": "^6.3.13",
     "babel-tape-runner": "^1.2.0",
     "redux": "^1.0.1",
     "standard": "^5.1.0",
