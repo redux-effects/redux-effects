@@ -27,7 +27,7 @@ function effects ({dispatch, getState}) {
   }
 
   function applyPromises (steps = [], q) {
-    return steps.reduce((q, [success = noop, failure = noop]) => q.then(val => maybeDispatch(success(val)), err => maybeDispatch(failure(err))), q)
+    return steps.reduce((q, [success = noop, failure = rethrow]) => q.then(val => maybeDispatch(success(val)), err => maybeDispatch(failure(err))), q)
   }
 
   function maybeDispatch (action) {
@@ -42,6 +42,7 @@ function promisify (val) {
 }
 
 function noop () {}
+function rethrow (err) { throw err; }
 
 /**
  * Action creator
