@@ -25,6 +25,20 @@ test('should work', ({plan, equal}) => {
   }
 })
 
+test('unhandled rejections should pass through', ({plan, fail, pass}) => {
+  const store = create(effects, mw);
+
+  plan(1)
+  const promise = store.dispatch({type: 'EFFECT_COMPOSE', payload: {type: 'test'}, meta: {steps: [[x => x]]}})
+
+  promise.then(fail, pass);
+
+  function mw (api) {
+    return next => action =>
+      Promise.reject('alwaysReject')
+  }
+})
+
 /**
  * Helpers
  */
